@@ -11,5 +11,4 @@ for i in change:
     elif money > i:
         count+=int(money/i)
         money-=i*int(money/i)
-
 print(count)

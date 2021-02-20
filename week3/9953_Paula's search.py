@@ -1,55 +1,50 @@
-import sys
 
-max = 100
-def visit(current):
-    if current <= 2 or current >= 99: return
-    if visit_number[current] > 9: return
-
-    if current % 2 == 0:
-        if (current // 2) % 2 == 0:
-            token = 0
-        else:
-            token = 1
-
-        opp_side_even = current-1
-        upside_even = current + (100 - current) // 2 + token
-        downside_even = current//2-token
-
-        list_to_visit_even = [opp_side_even, upside_even, downside_even]
-
-        for i in list_to_visit_even:
-                if visit_number[i] == 100:
-                    visit_number[i] = visit_number[current]+1
-                    visit(i)
-                else:
-                    visit_number[i] = min(visit_number[i], visit_number[current]+1)
-
-    else :
-        if (current // 2) % 2 == 0:
-            token = 1
-        else:
-            token = 0
-
-        upside_odd = current + (100 - current) // 2 + token
-        downside_odd = current // 2 - token
-
-        list_to_visit_odd = [upside_odd, downside_odd]
-
-        for i in list_to_visit_odd:
-
-                if visit_number[i] == 100:
-                    visit_number[i] = visit_number[current]+1
-                    visit(i)
-                else :
-                    visit_number[i] = min(visit_number[i], visit_number[current]+1)
-
-
-visit_number = [max for _ in range(101)]
-visit_number[50] = 1
-current = 50
-visit(50)
-print(visit_number)
+num = -1
 while True:
-    num = int(sys.stdin.readline())
-    if num == 0: break
-    print(visit_number[num])
+    num = int(input())
+    if num == 0 : break
+    position = [50]
+    current = 0
+    token = 0
+    while True:
+        if num %2 !=0:
+            token = 1
+        if num == position[current]-token:
+            current += 1 + token
+            break
+        if num < position[current]:
+            if num < min(position) :
+                if position[current] == 4:
+                    position.append(2)
+                elif position[current] ==6:
+                    position.append(4)
+                elif (position[current] // 2) % 2 == 0:
+                    position.append((position[current]) // 2)
+                else:
+                    position.append((position[current]-2)//2)
+            else :
+                gap = min(list(map(lambda x: abs(x-num), position[:-1])))
+                previous = num - gap
+                if ((previous+position[current])//2) %2 !=0:
+                    position.append((previous + position[current]) // 2-1)
+                else:
+                    position.append((previous + position[current])//2)
+        elif num > position[current]:  # 올라가야 할 때
+            if num > max(position) :
+                if position[current] == 98:
+                    position.append(100)
+                elif position[current] == 96:
+                    position.append(98)
+                elif ((position[current]+100)//2)%2 == 0:
+                    position.append((position[current]+100)//2)
+                else:
+                    position.append((position[current]+100+2)//2)
+            else:
+                gap = min(list(map(lambda x: abs(x-num), position[:-1])))
+                previous = num + gap
+                if ((previous+position[current])//2) %2 !=0:
+                    position.append((previous + position[current]) // 2-1)
+                else:
+                    position.append((previous+position[current])//2)
+        current+=1
+    print(current)

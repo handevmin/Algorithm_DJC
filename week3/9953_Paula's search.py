@@ -29,7 +29,7 @@ while True:
                     position.append((previous + position[current]) // 2-1)
                 else:
                     position.append((previous + position[current])//2)
-        elif num > position[current]:  # 올라가야 할 때
+        elif num > position[current]:
             if num > max(position) :
                 if position[current] == 98:
                     position.append(100)

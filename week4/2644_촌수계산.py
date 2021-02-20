@@ -18,7 +18,6 @@ def bfs(relation, start, end, visited):
     else :
         return -1
 
-
 n = int(sys.stdin.readline())
 person1, person2 = map(int, sys.stdin.readline().split())
 

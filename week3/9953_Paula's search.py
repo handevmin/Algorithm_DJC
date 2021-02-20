@@ -1,11 +1,11 @@
 import sys
-num =0
+
+max = 100
 def visit(current):
-    if current ==100:
-        return
-    if current == 99:
-        return
-    if current % 2 ==0:
+    if current <= 2 or current >= 99: return
+    if visit_number[current] > 9: return
+
+    if current % 2 == 0:
         if (current // 2) % 2 == 0:
             token = 0
         else:
@@ -14,22 +14,16 @@ def visit(current):
         opp_side_even = current-1
         upside_even = current + (100 - current) // 2 + token
         downside_even = current//2-token
-        print(upside_even)
-        if visit_number[opp_side_even]==0:
-            visit(opp_side_even)
-            visit_number[opp_side_even] = visit_number[current] + 1
-            if visit_number[opp_side_even] != 0 and visit_number[upside_even] != 0 and visit_number[downside_even] != 0:
-                return
-        if upside_even <= 100 and visit_number[upside_even]==0:
-            visit(upside_even)
-            visit_number[upside_even] = visit_number[current] + 1
-            if visit_number[opp_side_even] != 0 and visit_number[upside_even] != 0 and visit_number[downside_even] != 0:
-                return
-        if downside_even > 0 and visit_number[downside_even]==0:
-            visit(downside_even)
-            visit_number[downside_even] = visit_number[current] + 1
-            if visit_number[opp_side_even] != 0 and visit_number[upside_even] != 0 and visit_number[downside_even] != 0:
-                return
+
+        list_to_visit_even = [opp_side_even, upside_even, downside_even]
+
+        for i in list_to_visit_even:
+                if visit_number[i] == 100:
+                    visit_number[i] = visit_number[current]+1
+                    visit(i)
+                else:
+                    visit_number[i] = min(visit_number[i], visit_number[current]+1)
+
     else :
         if (current // 2) % 2 == 0:
             token = 1
@@ -38,21 +32,24 @@ def visit(current):
 
         upside_odd = current + (100 - current) // 2 + token
         downside_odd = current // 2 - token
-        if upside_odd <= 100 and visit_number[upside_odd] == 0:
-            visit(upside_odd)
-            visit_number[upside_odd] = visit_number[current] + 1
-            return
-        if downside_odd > 0 and visit_number[downside_odd]==0:
-            visit(downside_odd)
-            visit_number[downside_odd] = visit_number[current] + 1
-            return
 
-visit_number = [0 for _ in range(101)]
+        list_to_visit_odd = [upside_odd, downside_odd]
 
+        for i in list_to_visit_odd:
+
+                if visit_number[i] == 100:
+                    visit_number[i] = visit_number[current]+1
+                    visit(i)
+                else :
+                    visit_number[i] = min(visit_number[i], visit_number[current]+1)
+
+
+visit_number = [max for _ in range(101)]
 visit_number[50] = 1
-
 current = 50
-
 visit(50)
-
-print(visit_number[75])
+print(visit_number)
+while True:
+    num = int(sys.stdin.readline())
+    if num == 0: break
+    print(visit_number[num])

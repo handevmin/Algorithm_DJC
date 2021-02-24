@@ -9,11 +9,9 @@ def dfs(index, sum):
     global count
     # N까지 모두 돌았을 때 종료
     if index == N: return
-    print(index, sum, sum + sequence[index])
 
     if sum + sequence[index] == S:
         count+=1
-
 
     dfs(index+1, sum) # 여기서 0,1,2,3,4 순으로 원소가 한 개일 때 검사 후
     dfs(index+1, sum + sequence[index]) # 4번부터 반환되면서 다시 윗 줄 dfs로 들어가면서

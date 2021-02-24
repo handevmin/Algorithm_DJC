@@ -15,7 +15,6 @@ for i in range(M):
 
 visited = [False]*(M+1)
 distance = [0]*(M+1)
-count = 0
 
 def bfs(start):
     global visited
@@ -24,13 +23,22 @@ def bfs(start):
 
     while queue:
         v = queue.popleft()
-        count = 0
         for i in farm[v]:
             if not visited[i]:
-                count+=1
                 distance[i] = distance[v]+1
                 queue.append(i)
                 visited[i] = True
 bfs(1)
 
-print(distance.index(max(distance)), max(distance), distance.count(max(distance)))
+# why error?
+# print(distance.index(max(distance)), max(distance), distance.count(max(distance)))
+
+
+count = 0
+result = []
+for j in range(M):
+    if distance[j] == max(distance):
+        result.append(j)
+        count += 1
+
+print(min(result),max(distance),count)

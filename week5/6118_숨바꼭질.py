@@ -31,8 +31,7 @@ def bfs(start):
 bfs(1)
 
 # why error?
-# print(distance.index(max(distance)), max(distance), distance.count(max(distance)))
-
+#print(distance.index(max(distance)), max(distance), distance.count(max(distance)))
 
 count = 0
 result = []

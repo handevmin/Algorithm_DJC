@@ -7,17 +7,17 @@ while True:
     S = k_S[1:]
     lotto = S[0:6]
 
-    def dfs(depth, begin):
-        global S
-        global lotto
+def dfs(depth, begin):
+    global S
+    global lotto
 
-        # 종료조건
-        if depth == 6:
-            print(" ".join(lotto))
-        else:
-            for i in range(begin,len(S)):
-                lotto[depth] = S[i]
-                dfs(depth+1, i+1)
+    # 종료조건
+    if depth == 6:
+        print(" ".join(lotto))
+    else:
+        for i in range(begin,len(S)):
+            lotto[depth] = S[i]
+            dfs(depth+1, i+1)
 
-    dfs(0,0)
-    print()
+dfs(0,0)
+print()

@@ -1,15 +1,16 @@
-def fibonacci(n, zero=None, one=None):
-    if n == 0:
-        zero += 1
-        return 0
-    elif n == 1:
-        one += 1
-        return 1
-    else:
-        return fibonacci(n-1)+fibonacci(n-2)
+import sys
 
-T = int(input())
-while(T>0):
-    T-=1
-    n = int(input())
-    print(fibonacci(n,0,0))
+memory_zero = [0]*41
+memory_zero[0] = 1
+memory_zero[1] = 0
+
+memory_one = [0]*41
+memory_one[0] = 0
+memory_one[1] = 1
+T = int(sys.stdin.readline())
+for i in range(2, 41):
+    memory_zero[i] = memory_zero[i-1] + memory_zero[i-2]
+    memory_one[i] = memory_one[i - 1] + memory_one[i - 2]
+for i in range(T):
+    n = int(sys.stdin.readline())
+    print(memory_zero[n], memory_one[n])

@@ -1,33 +1,16 @@
-n = int(input())
-count=0
-t_count=0
-def test(n, t_count):
-    if n==1:
-        return t_count
-    elif n%3==0:
-        t_count+=1
-        n = n/3
-    elif n%2==0 and test(n-1, t_count)>=test(n/2, t_count):
-        n=n/2
-        t_count+=1
-    else:
-        n=n-1
-        t_count+=1
-    return test(n, t_count)
+import sys
 
-def makeone(n):
-    global count
-    if n==1:
-        return count
-    elif n%3==0:
-        count+=1
-        n = n/3
-    elif n%2==0 and test(n-1, t_count=0)>=test(n/2, t_count=0):
-        n=n/2
-        count+=1
-    else:
-        n=n-1
-        count+=1
-    return makeone(n)
+n = int(sys.stdin.readline())
 
-print(makeone(n))
+memory = [1000001]*1000001
+memory[1] = 0
+memory[2] = 1
+memory[3] = 1
+for i in range(4, 1000001):
+    memory[i] = memory[i-1]+1
+    if i % 2 == 0:
+        memory[i] = min(memory[i // 2]+1, memory[i])
+    if i % 3 ==0:
+        memory[i] = min(memory[i // 3]+1, memory[i])
+
+print(memory[n])
